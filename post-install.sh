@@ -55,14 +55,27 @@ cd /tmp/ && curl -O http://cdn3.brettterpstra.com/downloads/SearchLink2.2.5.zip 
 
 echo "Installations via Homebrew"
 
+
 echo "Installation de Sublime Text..."
 brew cask install sublime-text
+
+echo "Configuration de Sublime Text..."
+cp -R /Users/tahoe/Local/Backup/settings/sublimetext/Packages /Users/tahoe/Library/Application\ Support/Sublime\ Text\ 3 && cp -R /Users/tahoe/Local/Backup/settings/sublimetext/Installed\ Packages /Users/tahoe/Library/Application\ Support/Sublime\ Text\ 3
+
 
 echo "Installation de Telegram..."
 brew cask install telegram
 
+
 echo "Installation de BetterTouchTool..."
 brew cask install bettertouchtool
+
+echo "Activation de BetterTouchTool..."
+cp /Users/tahoe/Local/Backup/settings/bettertouchtool/bettertouchtool.bttlicense /Users/tahoe/Library/Application\ Support/BetterTouchTool 
+
+echo "Configuration de BetterTouchTool..."
+open /Users/tahoe/Local/Backup/settings/bettertouchtool/settings.bttpreset
+
 
 echo "Installation de Slack..."
 brew cask install slack
@@ -72,6 +85,9 @@ brew cask install xld
 
 echo "Installation de Firefox..."
 brew cask install firefox
+
+echo "Configuration de Firefox..."
+cp -R /Users/tahoe/Local/Backup/settings/firefox/2gkijsre.default-release /Users/tahoe/Library/Application\ Support/Firefox/Profiles
 
 echo "Installation de Chromium..."
 brew cask install chromium
@@ -140,36 +156,48 @@ install "Pages"
 
 echo "Installations via .pkg"
 
-echo "Installation de 1Password"
-sudo installer -pkg /Users/tahoe/Local/cracked/*1Password*.pkg  -target /
+echo "Installation de 1Password..."
+sudo installer -pkg /Users/tahoe/Local/Backup/cracked/*1Password*.pkg  -target /
 
 
 echo "Installations via .dmg"
 
 echo "Installation d'Affinity Designer..."
-sudo hdiutil attach /Users/tahoe/Local/cracked/*Affinity\ Designer*.dmg && cp -R /Volumes/*Affinity\ Designer*/*Affinity\ Designer*.app /Applications && hdiutil unmount /Volumes/*Affinity\ Designer*/
+sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*Affinity\ Designer*.dmg && cp -R /Volumes/*Affinity\ Designer*/*.app /Applications && hdiutil unmount /Volumes/*Affinity\ Designer*/
 
 echo "Installation d'Affinity Photo..."
-sudo hdiutil attach /Users/tahoe/Local/cracked/*Affinity\ Photo*.dmg && cp -R /Volumes/*Affinity\ Photo*/*Affinity\ Photo*.app /Applications && hdiutil unmount /Volumes/*Affinity\ Photo*/
+sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*Affinity\ Photo*.dmg && cp -R /Volumes/*Affinity\ Photo*/*.app /Applications && hdiutil unmount /Volumes/*Affinity\ Photo*/
 
 echo "Installation de Clear..."
-sudo cp -R /Users/tahoe/Local/cracked/*Clear*.app /Applications
+sudo cp -R /Users/tahoe/Local/Backup/cracked/*Clear*.app /Applications
+
+echo "Installation de CodeKit..."
+sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*CodeKit*.dmg && cp -R /Volumes/*CodeKit*/*.app /Applications && hdiutil unmount /Volumes/*CodeKit*/
 
 echo "Installation de Smooze..."
-sudo hdiutil attach /Users/tahoe/Local/cracked/*Smooze*.dmg && cp -R /Volumes/*Smooze*/*Smooze*.app /Applications && hdiutil unmount /Volumes/*Smooze*/
+sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*Smooze*.dmg && cp -R /Volumes/*Smooze*/*.app /Applications && hdiutil unmount /Volumes/*Smooze*/
+
+echo "Installation de ScreenFlow..."
+sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*ScreenFlow*.dmg && cp -R /Volumes/*ScreenFlow*/*.app /Applications && hdiutil unmount /Volumes/*ScreenFlow*/
+
+echo "Installation de Bartender..."
+sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*Bartender*.dmg && cp -R /Volumes/*Bartender*/*.app /Applications && hdiutil unmount /Volumes/*Bartender*/
 
 echo "Installation d'Alfred..."
-sudo hdiutil attach /Users/tahoe/Local/cracked/*Alfred*.dmg && cp -R /Volumes/*Alfred*/*Alfred*.app /Applications && hdiutil unmount /Volumes/*Alfred*/
+sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*Alfred*.dmg && cp -R /Volumes/*Alfred*/*.app /Applications && hdiutil unmount /Volumes/*Alfred*/
 
 echo "Installation de iStat Menus... (licence requise)"
-sudo hdiutil attach /Users/tahoe/Local/cracked/*iStat*.dmg && cp -R /Volumes/*iStat*/*iStat*.app /Applications
+sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*iStat*.dmg && cp -R /Volumes/*iStat*/*.app /Applications
 
 echo "Installation de JPEG Mini..."
-sudo cp -R /Users/tahoe/Local/cracked/*JPEG*.app /Applications
+sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*JPEG*.dmg && cp -R /Volumes/*JPEG*/*.app /Applications && hdiutil unmount /Volumes/*JPEG*/
 
 
+echo "Autres installations"
 
-
+echo "Installation de Hazel..."
+open /Users/tahoe/Local/Backup/cracked/Hazel.prefPane
+#&& open /Users/tahoe/Local/Backup/cracked/hazellicense.hazellicense && open /Users/tahoe/Local/Backup/hazel/rules.hazelrules
 
 
 
@@ -334,4 +362,4 @@ brew cleanup
 rm -f -r /Library/Caches/Homebrew/*
 
 echo "ET VOILÀ !"
-echo "Reste plus qu'à entrer les licences des volumes restants."
+echo "Reste plus qu'à entrer les licences des volumes restants (iStat Menu), configurer Smooze à partir du screenshot dans /settings, activer Hazel et importer ses règles."
