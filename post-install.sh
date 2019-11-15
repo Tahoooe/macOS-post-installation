@@ -3,6 +3,8 @@
 ## README
 # /!\ Ce script d'installation est conçu pour mon usage. Ne le lancez pas sans vérifier chaque commande ! /!\
 
+# Avant de lancer le script : se déconnecter de l'App Store, déplacer le dossier /local de mon ordi principal vers /Users/tahoe
+
 echo 'Allowing apps to be installed from anywhere...'
 sudo spctl --master-enable
 
@@ -55,17 +57,14 @@ cd /tmp/ && curl -O http://cdn3.brettterpstra.com/downloads/SearchLink2.2.5.zip 
 
 echo "Installations via Homebrew"
 
-
 echo "Installation de Sublime Text..."
 brew cask install sublime-text
 
 echo "Configuration de Sublime Text..."
 cp -R /Users/tahoe/Local/Backup/settings/sublimetext/Packages /Users/tahoe/Library/Application\ Support/Sublime\ Text\ 3 && cp -R /Users/tahoe/Local/Backup/settings/sublimetext/Installed\ Packages /Users/tahoe/Library/Application\ Support/Sublime\ Text\ 3
 
-
 echo "Installation de Telegram..."
 brew cask install telegram
-
 
 echo "Installation de BetterTouchTool..."
 brew cask install bettertouchtool
@@ -75,7 +74,6 @@ cp /Users/tahoe/Local/Backup/settings/bettertouchtool/bettertouchtool.bttlicense
 
 echo "Configuration de BetterTouchTool..."
 open /Users/tahoe/Local/Backup/settings/bettertouchtool/settings.bttpreset
-
 
 echo "Installation de Slack..."
 brew cask install slack
@@ -140,7 +138,6 @@ brew cask install intel-power-gadget
 
 
 
-
 echo "Installations via l'App Store"
 
 echo "Installation de Numbers..."
@@ -152,12 +149,12 @@ install "Pages"
 
 
 
-
-
 echo "Installations via .pkg"
 
 echo "Installation de 1Password..."
 sudo installer -pkg /Users/tahoe/Local/Backup/cracked/*1Password*.pkg  -target /
+
+
 
 
 echo "Installations via .dmg"
@@ -168,8 +165,11 @@ sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*Affinity\ Designer*.dmg &
 echo "Installation d'Affinity Photo..."
 sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*Affinity\ Photo*.dmg && cp -R /Volumes/*Affinity\ Photo*/*.app /Applications && hdiutil unmount /Volumes/*Affinity\ Photo*/
 
-echo "Installation de Clear..."
-sudo cp -R /Users/tahoe/Local/Backup/cracked/*Clear*.app /Applications
+echo "Installation d'Alfred..."
+sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*Alfred*.dmg && cp -R /Volumes/*Alfred*/*.app /Applications && hdiutil unmount /Volumes/*Alfred*/
+
+echo "Configuration de Alfred..."
+cp -R /Users/tahoe/Local/Backup/settings/Alfred /Users/tahoe/Library/Application\ Support
 
 echo "Installation de CodeKit..."
 sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*CodeKit*.dmg && cp -R /Volumes/*CodeKit*/*.app /Applications && hdiutil unmount /Volumes/*CodeKit*/
@@ -183,8 +183,8 @@ sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*ScreenFlow*.dmg && cp -R 
 echo "Installation de Bartender..."
 sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*Bartender*.dmg && cp -R /Volumes/*Bartender*/*.app /Applications && hdiutil unmount /Volumes/*Bartender*/
 
-echo "Installation d'Alfred..."
-sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*Alfred*.dmg && cp -R /Volumes/*Alfred*/*.app /Applications && hdiutil unmount /Volumes/*Alfred*/
+echo "Installation de CleanMyMac..."
+sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*CleanMyMac*.dmg && cp -R /Volumes/*CleanMyMac*/*.app /Applications && hdiutil unmount /Volumes/*CleanMyMac*/
 
 echo "Installation de iStat Menus... (licence requise)"
 sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*iStat*.dmg && cp -R /Volumes/*iStat*/*.app /Applications
@@ -192,12 +192,27 @@ sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*iStat*.dmg && cp -R /Volu
 echo "Installation de JPEG Mini..."
 sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*JPEG*.dmg && cp -R /Volumes/*JPEG*/*.app /Applications && hdiutil unmount /Volumes/*JPEG*/
 
+echo "Installation de Paragon NTFS..."
+sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*Paragon*.dmg && cp -R /Volumes/*Paragon*/*.app /Applications && cp -R /Volumes/*Trial*/*.app /Applications && hdiutil unmount /Volumes/*Paragon*/
+
+echo "Installation de Transmit..."
+sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*Transmit*.dmg && cp -R /Volumes/*Transmit*/*.app /Applications && hdiutil unmount /Volumes/*Transmit*/
+
+echo "Configuration de Transmit..."
+cp -R /Users/tahoe/Local/Backup/settings/Transmit /Users/tahoe/Library/Application\ Support
+
 
 echo "Autres installations"
 
 echo "Installation de Hazel..."
 open /Users/tahoe/Local/Backup/cracked/Hazel.prefPane
 #&& open /Users/tahoe/Local/Backup/cracked/hazellicense.hazellicense && open /Users/tahoe/Local/Backup/hazel/rules.hazelrules
+
+echo "Installation de Clear..."
+sudo cp -R /Users/tahoe/Local/Backup/cracked/*Clear*.app /Applications
+
+echo "Installation de Byword..."
+sudo cp -R /Users/tahoe/Local/Backup/cracked/*Byword*.app /Applications
 
 
 
@@ -362,4 +377,4 @@ brew cleanup
 rm -f -r /Library/Caches/Homebrew/*
 
 echo "ET VOILÀ !"
-echo "Reste plus qu'à entrer les licences des volumes restants (iStat Menu), configurer Smooze à partir du screenshot dans /settings, activer Hazel et importer ses règles."
+echo "Reste plus qu'à entrer les licences des volumes restants (iStat Menu), configurer Smooze à partir du screenshot danse /sttings, activer Hazel et importer ses règles, importer les serveurs de Transmit."
