@@ -3,10 +3,15 @@
 ## README
 # /!\ Ce script d'installation est conçu pour mon usage. Ne le lancez pas sans vérifier chaque commande ! /!\
 
+# Crée /local et copie /backup dedans
+
+echo 'Déplacement des données...'
+cd /Users/tahoe && mkdir Local && cp -R /Volumes/Rick/Backup /Users/tahoe/Local
+
 # Avant de lancer le script : se déconnecter de l'App Store, déplacer le dossier /local de mon ordi principal vers /Users/tahoe
 
 echo 'Allowing apps to be installed from anywhere...'
-sudo spctl --master-enable
+sudo spctl --master-disable
 
 ## La base : Homebrew
 if test ! $(which brew)
@@ -45,35 +50,18 @@ function install () {
 
 
 
-# Installation manuelle de SearchLink
-cd /tmp/ && curl -O http://cdn3.brettterpstra.com/downloads/SearchLink2.2.5.zip && unzip SearchLink2.2.5.zip && cd SearchLink2.2.5 && mv SearchLink.workflow ~/Library/Services/
-
-
-# DockArt (installation manuelle, faute de mieux)
-# cd /tmp/ && curl -O http://www.splook.com/Software/DockArt_files/DockArt2.zip && unzip DockArt2.zip && cd DockArt\ 2.2 && mv DockArt.bundle ~/Library/iTunes/iTunes\ Plug-ins
-
-
- 
-
-echo "Installations via Homebrew"
+	echo "Installations via Homebrew"
 
 echo "Installation de Sublime Text..."
 brew cask install sublime-text
-
-echo "Configuration de Sublime Text..."
-cp -R /Users/tahoe/Local/Backup/settings/sublimetext/Packages /Users/tahoe/Library/Application\ Support/Sublime\ Text\ 3 && cp -R /Users/tahoe/Local/Backup/settings/sublimetext/Installed\ Packages /Users/tahoe/Library/Application\ Support/Sublime\ Text\ 3
+open -a 'Sublime Text'
 
 echo "Installation de Telegram..."
 brew cask install telegram
 
 echo "Installation de BetterTouchTool..."
 brew cask install bettertouchtool
-
-echo "Activation de BetterTouchTool..."
-cp /Users/tahoe/Local/Backup/settings/bettertouchtool/bettertouchtool.bttlicense /Users/tahoe/Library/Application\ Support/BetterTouchTool 
-
-echo "Configuration de BetterTouchTool..."
-open /Users/tahoe/Local/Backup/settings/bettertouchtool/settings.bttpreset
+open -a 'BetterTouchTool'
 
 echo "Installation de Slack..."
 brew cask install slack
@@ -83,9 +71,6 @@ brew cask install xld
 
 echo "Installation de Firefox..."
 brew cask install firefox
-
-echo "Configuration de Firefox..."
-cp -R /Users/tahoe/Local/Backup/settings/firefox/2gkijsre.default-release /Users/tahoe/Library/Application\ Support/Firefox/Profiles
 
 echo "Installation de Chromium..."
 brew cask install chromium
@@ -135,10 +120,13 @@ brew cask install nordvpn
 echo "Installation de Intel Power Gadget..."
 brew cask install intel-power-gadget
 
+echo 'Installation de dockutil'
+brew install dockutil
 
 
 
-echo "Installations via l'App Store"
+
+	echo "Installations via l'App Store"
 
 echo "Installation de Numbers..."
 install "Numbers"
@@ -149,15 +137,13 @@ install "Pages"
 
 
 
-echo "Installations via .pkg"
+	echo "Installations via .pkg"
 
 echo "Installation de 1Password..."
 sudo installer -pkg /Users/tahoe/Local/Backup/cracked/*1Password*.pkg  -target /
 
 
-
-
-echo "Installations via .dmg"
+	echo "Installations via .dmg"
 
 echo "Installation d'Affinity Designer..."
 sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*Affinity\ Designer*.dmg && cp -R /Volumes/*Affinity\ Designer*/*.app /Applications && hdiutil unmount /Volumes/*Affinity\ Designer*/
@@ -167,9 +153,7 @@ sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*Affinity\ Photo*.dmg && c
 
 echo "Installation d'Alfred..."
 sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*Alfred*.dmg && cp -R /Volumes/*Alfred*/*.app /Applications && hdiutil unmount /Volumes/*Alfred*/
-
-echo "Configuration de Alfred..."
-cp -R /Users/tahoe/Local/Backup/settings/Alfred /Users/tahoe/Library/Application\ Support
+open -a 'Alfred'
 
 echo "Installation de CodeKit..."
 sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*CodeKit*.dmg && cp -R /Volumes/*CodeKit*/*.app /Applications && hdiutil unmount /Volumes/*CodeKit*/
@@ -182,6 +166,7 @@ sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*ScreenFlow*.dmg && cp -R 
 
 echo "Installation de Bartender..."
 sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*Bartender*.dmg && cp -R /Volumes/*Bartender*/*.app /Applications && hdiutil unmount /Volumes/*Bartender*/
+open -a 'Bartender'
 
 echo "Installation de CleanMyMac..."
 sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*CleanMyMac*.dmg && cp -R /Volumes/*CleanMyMac*/*.app /Applications && hdiutil unmount /Volumes/*CleanMyMac*/
@@ -198,11 +183,8 @@ sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*Paragon*.dmg && cp -R /Vo
 echo "Installation de Transmit..."
 sudo hdiutil attach /Users/tahoe/Local/Backup/cracked/*Transmit*.dmg && cp -R /Volumes/*Transmit*/*.app /Applications && hdiutil unmount /Volumes/*Transmit*/
 
-echo "Configuration de Transmit..."
-cp -R /Users/tahoe/Local/Backup/settings/Transmit /Users/tahoe/Library/Application\ Support
 
-
-echo "Autres installations"
+	echo "Autres installations"
 
 echo "Installation de Hazel..."
 open /Users/tahoe/Local/Backup/cracked/Hazel.prefPane
@@ -218,22 +200,45 @@ sudo cp -R /Users/tahoe/Local/Backup/cracked/*Byword*.app /Applications
 
 
 ## ************************* CONFIGURATION ********************************
-echo "Configuration de quelques paramètres par défaut…"
+	echo "Configuration des apps"
+
+pkill -x 'Bartender'
+
+echo "Configuration de Sublime Text..."
+cp -R /Users/tahoe/Local/Backup/settings/sublimetext/Packages /Users/tahoe/Library/Application\ Support/Sublime\ Text\ 3 && cp -R /Users/tahoe/Local/Backup/settings/sublimetext/Installed\ Packages /Users/tahoe/Library/Application\ Support/Sublime\ Text\ 3
+
+echo "Activation de BetterTouchTool..."
+cp /Users/tahoe/Local/Backup/settings/bettertouchtool/bettertouchtool.bttlicense /Users/tahoe/Library/Application\ Support/BetterTouchTool 
+
+echo "Configuration de BetterTouchTool..."
+open /Users/tahoe/Local/Backup/settings/bettertouchtool/settings.bttpreset
+
+echo "Configuration de Alfred..."
+cp -R /Users/tahoe/Local/Backup/settings/Alfred /Users/tahoe/Library/Application\ Support
+
+echo "Configuration de Firefox..."
+cp -R /Users/tahoe/Local/Backup/settings/Firefox /Users/tahoe/Library/Application\ Support
+
+echo "Configuration de Transmit..."
+cp -R /Users/tahoe/Local/Backup/settings/Transmit /Users/tahoe/Library/Application\ Support
+
+
+
+
+
+
+
+
+
+
+
+
+
+	echo "Configuration de quelques paramètres par défaut…"
 
 ## FINDER
 
-# Affichage de la bibliothèque
-# chflags nohidden ~/Library
-
-# Afficher par défaut en mode colonne
-# Flwv ▸ Cover Flow View
-# Nlsv ▸ List View
-# clmv ▸ Column View
-# icnv ▸ Icon View
-defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
-
-# Afficher le chemin d'accès
-defaults write com.apple.finder ShowPathbar -bool true
+chflags nohidden ~/Library
 
 # Afficher le dossier maison par défaut
 defaults write com.apple.finder NewWindowTarget -string "PfHm"
@@ -273,18 +278,12 @@ defaults write -g NSWindowShouldDragOnGesture -bool true
 
 ## APPS
 
-# Vérifier les mises à jour automatiquement
-sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
-
 # Safari : menu développeur / URL en bas à gauche / URL complète en haut / Do Not Track / affichage barre favoris
 defaults write com.apple.safari IncludeDevelopMenu -int 1
 defaults write com.apple.safari ShowOverlayStatusBar -int 1
 defaults write com.apple.safari ShowFullURLInSmartSearchField -int 1
 defaults write com.apple.safari SendDoNotTrackHTTPHeader -int 1
 defaults write com.apple.Safari ShowFavoritesBar -bool true
-
-# Chrome : désactiver la navigation dans l'historique au swipe
-defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool FALSE
 
 # TextEdit : .txt par défaut
 defaults write com.apple.TextEdit RichText -int 0
@@ -304,11 +303,40 @@ defaults write com.apple.dock show-process-indicators -bool true
 
 # Délais d'affichage du dock
 defaults write com.apple.dock autohide-delay -float 0
-com.apple.dock autohide-time-modifier -float 0.3
+defaults write com.apple.dock autohide-time-modifier -float 0.3
 
 # Désactive les applications récentes dans le dock
 defaults write com.apple.dock show-recents -bool FALSE
 
+echo "Réorganisation du dock..."
+# Retire les icônes inutiles
+dockutil --remove 'Siri'
+dockutil --remove 'Launchpad'
+dockutil --remove 'Safari'
+dockutil --remove 'Mail'
+dockutil --remove 'Contacts'
+dockutil --remove 'Calendar'
+dockutil --remove 'Notes'
+dockutil --remove 'Reminder'
+dockutil --remove 'Maps'
+dockutil --remove 'Photos'
+dockutil --remove 'Messages'
+dockutil --remove 'FaceTime'
+dockutil --remove 'Pages'
+dockutil --remove 'Numbers'
+dockutil --remove 'Keynote'
+dockutil --remove 'News'
+dockutil --remove 'iTunes'
+dockutil --remove 'App Store'
+
+# Met les icônes dans le bon sens
+dockutil --add /Applications/Firefox.app --before 'System Preferences'
+dockutil --add /Applications/Telegram.app --before 'System Preferences'
+dockutil --add /Applications/Sublime\ Text.app --before 'System Preferences'
+dockutil --add /Applications/CodeKit.app --before 'System Preferences'
+dockutil --add /Applications/Slack.app --before 'System Preferences'
+dockutil --add /Applications/iTunes.app --before 'System Preferences'
+dockutil --add /Applications/Notes.app --before 'System Preferences'
 
 ## Screenshots
 
@@ -320,6 +348,9 @@ defaults write com.apple.screencapture disable-shadow -bool false
 
 # Nom de base du screenshot
 defaults write com.apple.screencapture name -string "screen"
+
+# Met les screenshots sur le bureau
+defaults write com.apple.screencapture location /Users/tahoe/Desktop
 
 
 ## Finder
@@ -337,9 +368,6 @@ AppleInterfaceStyle -string "Dark"
 
 # Retire le flash quand il y a une erreur
 defaults write NSGlobalDomain com.apple.sound.beep.flash -bool false
-
-# Désactive le scroll naturel
-defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
 # Pas de press and hold
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
